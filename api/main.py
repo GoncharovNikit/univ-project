@@ -1,4 +1,3 @@
-import pandas as pd
 from flask import Flask
 from flask_cors import CORS
 
@@ -9,5 +8,3 @@ CORS(app)
 def basePath():
     with open('./data/speciality.json') as json_data:
         return json_data.read()
-
-    return df.to_json(orient='records', index=True)
