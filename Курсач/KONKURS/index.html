@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Konkurs hneu</title>
+    <link rel="icon" type="image/x-icon" href="img/icon1.png">
+    <link rel="stylesheet" type="light-mode.css" href="theme">
+    <style>
+      body {
+        background-image: url("img/night.jpg");
+        background-size: cover;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class = wrapper>
+      <button id="switchMode">Switch</button>
+    </div>
+    <div class="container">
+      <div class="header">
+        <h1>KONKURS <button class="start-btn">Почнемо!</button> Порахуй свій бал</h2>
+      </div>
+      <div class="form-container">
+        <form class="form">
+          <div class="select-container">
+            <label>Виберіть спеціальність:</label>
+            <select>
+              <option value="spec1">Спеціальність 1</option>
+              <option value="spec2">Спеціальність 2</option>
+              <option value="spec3">Спеціальність 3</option>
+            </select>
+          </div>
+          <div class="select-container">
+            <label>Виберіть програму:</label>
+            <select>
+              <option value="prog1">Програма 1</option>
+              <option value="prog2">Програма 2</option>
+              <option value="prog3">Програма 3</option>
+            </select>
+          </div>
+          <div class="input-container">
+            <label>Впишіть свої бали:</label>
+            <input type="text" placeholder="Введіть бали">
+          </div>
+          <button type="submit">Показати результат</button>
+        </form>
+      </div>
+      <div class="result-container">
+        <h3>Ваш результат:</h3>
+        <div class="result"></div>
+      </div>
+    </div>
+    <script src="c.js"></script>
+  </body>
+</html>
