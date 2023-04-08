@@ -54,3 +54,15 @@ const addSpecialitiesOptions = (specialities) => {
     })
 
 }
+
+const themeToggle = document.querySelector('#theme-toggle');
+
+themeToggle.addEventListener('change', function() {
+  if (this.checked) {
+    document.body.classList.remove('light');
+    document.body.classList.add('dark');
+  } else {
+    document.body.classList.remove('dark');
+    document.body.classList.add('light');
+  }
+});
