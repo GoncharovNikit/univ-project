@@ -55,7 +55,30 @@ const addSpecialitiesOptions = (specialities) => {
 
 }
 
+/*const updateModeSwitchIcon = () => {
+  const isDarkMode = document.body.classList.contains('dark');
+  const moonIcon = document.querySelector('.moon-icon');
+  const sunIcon = document.querySelector('.sun-icon');
+  if (isDarkMode) {
+    moonIcon.style.display = 'block';
+    sunIcon.style.display = 'none';
+  } else {
+    moonIcon.style.display = 'none';
+    sunIcon.style.display = 'block';
+  }
+};*/
+
+const updateModeSwitchIcon = () => {
+  const icon = document.querySelector('.icon');
+  if (themeToggle.checked) {
+    icon.classList.add('rotate');
+  } else {
+    icon.classList.remove('rotate');
+  }
+};
+
 const themeToggle = document.querySelector('#theme-toggle');
+const switchElement = document.querySelector('.switch');
 
 themeToggle.addEventListener('change', function() {
   if (this.checked) {
@@ -65,4 +88,8 @@ themeToggle.addEventListener('change', function() {
     document.body.classList.remove('dark');
     document.body.classList.add('light');
   }
+  updateModeSwitchIcon();
 });
+
+// Call the function once on load to set the initial icon
+updateModeSwitchIcon();

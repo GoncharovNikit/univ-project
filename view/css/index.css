@@ -10,7 +10,6 @@ body {
 	background-color: var(--bg-color);
 	color: var(--text-color);
 	transition: background-color 0.5s ease, color 0.5s ease;
-	color: #ffffff;
 }
 
 body.light {
@@ -23,6 +22,32 @@ body.dark {
 	color: #ffffff; 
 }
 
+.theme-switcher {
+	display: flex;
+	align-items: center;
+}
+  
+.icon {
+	margin-left: 10px;
+	transition: transform 0.2s ease-in-out;
+}
+  
+.icon.rotate {
+	transform: rotate(180deg);
+}
+  
+/*.moon-icon {
+	position: fixed;
+	top: 25px;
+	right: 85px;
+}
+	
+.sun-icon {
+	position: fixed;
+	top: 25px;
+	right: 85px;
+}*/
+  
 .theme-switcher {
 	position: fixed;
 	top: 20px;
