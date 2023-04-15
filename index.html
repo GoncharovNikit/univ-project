@@ -7,17 +7,7 @@
         <link rel="stylesheet" href="css/index.css" /> 
     </head>
     <body class="light">
-        <div id="preloader">
-          Loading..
-        </div>
         <div class="container">
-            <div class="header">
-                <h1>
-                    KONKURS
-                    <button id="start-btn">Почнемо!</button>
-                    Порахуй свій бал
-                </h1>
-            </div>
             <div class="theme-switcher">
                 <label class="switch">
                   <input type="checkbox" id="theme-toggle">
@@ -35,27 +25,24 @@
                     <div class="subjects-container">
                         <div class="input-container">
                             <label>Українська Мова:</label>
-                            <input name="ukrInput" type="text" id="ukrInput" placeholder="Введіть бали" />
+                            <input name="ukrInput" type="text" id="ukrInput" placeholder="Введіть бал" required />
                         </div>
                         <div class="input-container">
                             <label>Математика:</label>
-                            <input name="mathInput" type="text" id="mathInput" placeholder="Введіть бали" />
+                            <input name="mathInput" type="text" id="mathInput" placeholder="Введіть бал" required />
                         </div>
                       <div class="select-container">
                           <label>Оберіть третій предмет:</label>
                           <select id="third-subject">
                           </select>
+                          <input name="thirdSub" type="text" id="thirdSub" placeholder="Введіть бал" required />
                       </div>
                     </div>
-                    <div class="input-container">
-                        <label>Впишіть свої бали:</label>
-                        <input name="thirdSub" type="text" id="thirdSub" placeholder="Введіть бали" />
+                    <div class="result-container">
+                        <button type="submit">Розрахувати бал</button>
+                        <div class="result"></div>
                     </div>
-                    <button type="submit">Показати результат</button>
                 </form>
-            </div>
-            <div class="result-container"> <!-- відповідає за ласт сторінку з результатом -->
-                <div class="result"></div>
             </div>
         </div>
         <script src="js/script.js"></script>

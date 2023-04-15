@@ -1,0 +1,187 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.light {
+    background-color: #f5f5f5;
+    color: #000000;
+}
+
+body.dark {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+.theme-switcher {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin-left: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.icon.rotate {
+    transform: rotate(180deg);
+}
+
+/*.moon-icon {
+	position: fixed;
+	top: 25px;
+	right: 85px;
+}
+	
+.sun-icon {
+	position: fixed;
+	top: 25px;
+	right: 85px;
+}*/
+
+.theme-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: grey;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: black;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.dark {
+    --bg-color: #222222;
+    --text-color: #ffffff;
+}
+
+.light {
+    --bg-color: #ffffff;
+    --text-color: #222222;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-container {
+    color: black;
+}
+
+.form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.select-container,
+.input-container {
+    margin-bottom: 20px;
+}
+
+.select-container label,
+.input-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+select,
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    display: block;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #3f51b5;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+	width: 30%;
+}
+
+.result-container {
+    margin-top: 40px;
+	padding: 0 50px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.result {
+    font-size: 18px;
+    font-weight: bold;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 30%;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#third-subject {
+	margin-bottom: 10px;
+}
