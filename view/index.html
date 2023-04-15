@@ -33,23 +33,28 @@
                         </select>
                     </div>
                     <div class="subjects-container">
-                      <div class="select-container">Перший предмет:</div>
-                      <div class="select-container">Другий предмет:</div>
+                        <div class="input-container">
+                            <label>Українська Мова:</label>
+                            <input name="ukrInput" type="text" id="ukrInput" placeholder="Введіть бали" />
+                        </div>
+                        <div class="input-container">
+                            <label>Математика:</label>
+                            <input name="mathInput" type="text" id="mathInput" placeholder="Введіть бали" />
+                        </div>
                       <div class="select-container">
-                          <label>Виберіть третій предмет:</label>
+                          <label>Оберіть третій предмет:</label>
                           <select id="third-subject">
                           </select>
                       </div>
                     </div>
                     <div class="input-container">
                         <label>Впишіть свої бали:</label>
-                        <input type="text" placeholder="Введіть бали" />
+                        <input name="thirdSub" type="text" id="thirdSub" placeholder="Введіть бали" />
                     </div>
                     <button type="submit">Показати результат</button>
                 </form>
             </div>
-            <div class="result-container">
-                <h2>Ваш результат:</h2>
+            <div class="result-container"> <!-- відповідає за ласт сторінку з результатом -->
                 <div class="result"></div>
             </div>
         </div>

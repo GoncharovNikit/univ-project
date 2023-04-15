@@ -10,6 +10,12 @@ const resultContainer = document.querySelector(".result-container");
 const result = document.querySelector(".result");
 const startBtn = document.querySelector("#start-btn");
 const preloader = document.querySelector('#preloader');
+const specialityDropdown = document.querySelector('#speciality-dropdown'); 
+const thirdSubDropdown = document.querySelector('#third-subject '); 
+
+
+
+
 
 startBtn.addEventListener("click", () => {
     preloader.style.display = "flex";
@@ -25,35 +31,73 @@ startBtn.addEventListener("click", () => {
         })
 });
 
+specialityDropdown.addEventListener("change", function() {
+  var spec = specialityDropdown.value;
+  console.log(spec);
+  fetch(apiConfig.apiBaseUrl + apiConfig.endpoints.getSpecialities)
+        .then((response) => {
+            response.json().then((data) =>{
+   addSubjectOptions(data, spec)})
+})
+});
+
+
+
 form.addEventListener("submit", (e) => {
-    e.preventDefault();
+    e.preventDefault();    
+    var ukrInput = document.getElementById('ukrInput');
+    var mathInput = document.getElementById('mathInput');
+    var thirdSub = document.getElementById('thirdSub');
+    var ukrValue = parseFloat(ukrInput.value); 
+    var mathValue = parseFloat(mathInput.value);
+    var thirdValue = parseFloat(thirdSub.value);
 
-    const select1 = form.querySelector("select:first-of-type");
-    const select2 = form.querySelector("select:last-of-type");
-    const input = form.querySelector("input");
-
-    const spec = select1.options[select1.selectedIndex].text;
-    const prog = select2.options[select2.selectedIndex].text;
-    const score = input.value;
-
-    const resultText = `Ваш результат для спеціальності "${spec}" та програми "${prog}" - ${score} бал(ів)`;
+    const select = form.querySelector("select:first-of-type");
+    const spec = select.options[select.selectedIndex].text;
+    const speciality = specialityDropdown.value;
+    const thirdSubject = thirdSubDropdown.value;
+    score = calculateScore(ukrValue, mathValue, thirdValue, thirdSubject, speciality);
+    if (score > 200){
+      score = 200;
+    }
+    const resultText = `Ваш результат для спеціальності "${spec}": ${score} бал(ів)`;
     result.textContent = resultText;
 
     form.style.display = "none";
     resultContainer.style.display = "block";
 });
 
+function calculateScore(ukrValue, mathValue, thirdValue, thirdSubject, speciality){
+  data  =1;
+    return data;
+}
+
 const addSpecialitiesOptions = (specialities) => {
     console.log(specialities);
-    const specs = document.querySelector('#speciality-dropdown')
+    specialityDropdown.innerHTML = "<option value=''>Оберіть значення</option>";
     specialities.forEach((spec) => {
         const option = document.createElement('option');
         option.value = spec.code;
         option.innerHTML = spec.code + " " + spec.title;
-        specs.appendChild(option);
+        specialityDropdown.appendChild(option);
     })
-
 }
+
+const addSubjectOptions = (data, spec) => {
+  thirdSubDropdown.innerHTML = "<option value=''>Оберіть значення</option>";
+  const selectedData = data.find(item => item.code == spec);
+  const subjects = selectedData.secondarySubjects.map(subject => subject.title);
+  console.log(subjects);
+  subjects.forEach((subj)=>{
+      const option = document.createElement('option');
+      option.value = subj;
+      option.innerHTML = subj;
+      thirdSubDropdown.appendChild(option);      
+  }) 
+  }
+
+
+
 
 /*const updateModeSwitchIcon = () => {
   const isDarkMode = document.body.classList.contains('dark');
