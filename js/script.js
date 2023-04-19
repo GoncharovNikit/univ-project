@@ -51,7 +51,7 @@ function calculateScore(
     const thirdCoef = speciality.secondarySubjects.find((subj) => subj.title === thirdSubject).coef
     const thirdScore = thirdCoef * thirdValue
 
-    return (ukrScore + mathScore + thirdScore) / (ukrCoef + mathCoef + thirdCoef)
+    return (ukrScore + mathScore + thirdScore) / (ukrCoef + mathCoef + thirdCoef) * 1
 }
 
 const addSpecialitiesOptions = (specialities) => {
