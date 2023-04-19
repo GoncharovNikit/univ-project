@@ -124,6 +124,9 @@ const subjects = [
     {
         code: "022",
         title: "Дизайн",
+        program: "Бізнес-дизайн",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
