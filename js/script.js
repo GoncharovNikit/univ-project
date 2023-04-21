@@ -3,6 +3,7 @@ const resultContainer = document.querySelector(".result-container")
 const result = document.querySelector(".result")
 const specialityDropdown = document.querySelector("#speciality-dropdown")
 const thirdSubDropdown = document.querySelector("#third-subject ")
+const programPlaceHold = document.querySelector("#programPlaceHold")
 
 document.addEventListener("DOMContentLoaded", (e) => {
     updateModeSwitchIcon()
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 specialityDropdown.addEventListener("change", () => {
     addSecondarySubjectOptions(specialityDropdown.value)
+    displayProgram(specialityDropdown.value)
 })
 
 form.addEventListener("submit", (e) => {
@@ -120,6 +122,32 @@ const getSecondarySubjects = (specialityCode) => {
     return speciality.secondarySubjects.map((subject) => subject.title)
 }
 
+const displayProgram = (specialityCode) =>{
+    const speciality = getSpecialities().find(
+        (speciality) => speciality.code === specialityCode
+    )
+
+    programPlaceHold.innerHTML ="Освітні програми: "+speciality.program
+}
+
+
+
+// specialityDropdown.addEventListener("change", () => {
+//     addSecondarySubjectOptions(specialityDropdown.value)
+//     displayProgram(specialityDropdown.value)
+// })
+
+// const addSecondarySubjectOptions = (specialityCode) => {
+//     thirdSubDropdown.innerHTML = ""
+
+//     getSecondarySubjects(specialityCode).forEach((subj) => {
+//         const option = document.createElement("option")
+//         option.value = subj
+//         option.innerHTML = subj
+//         thirdSubDropdown.appendChild(option)
+//     })
+// }
+
 const subjects = [
     {
         code: "022",
@@ -163,6 +191,9 @@ const subjects = [
     {
         code: "051",
         title: "Економіка",
+        program: "Бізнес-статистика і аналітика, Економіка підприємства, Економіка та економічна політика, Економічна кібернетика, Міжнародна економіка, Управління персоналом в бізнесі, Цифрова економіка",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -199,6 +230,9 @@ const subjects = [
     {
         code: "052",
         title: "Політологія",
+        program: "Національна безпека",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -235,6 +269,9 @@ const subjects = [
     {
         code: "053",
         title: "Психологія",
+        program: "Психологія бізнесу",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -271,6 +308,9 @@ const subjects = [
     {
         code: "061",
         title: "Журналістика",
+        program: "Медіа-комунікації, Реклама і PR",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -307,6 +347,9 @@ const subjects = [
     {
         code: "071",
         title: "Облік і оподаткування",
+        program: "Облік і аудит",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -343,6 +386,9 @@ const subjects = [
     {
         code: "072",
         title: "Фінанси, банківська справа, страхування та фондовий ринок",
+        program: "Митна справа, Фінанси і кредит, Фінансовий продакт-менеджмент, Фінансові послуги та віртуальні активи",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -379,6 +425,9 @@ const subjects = [
     {
         code: "073",
         title: "Менеджмент",
+        program: "Бізнес-адміністрування, Логістика, Менеджмент інноваційної діяльності, Менеджмент креативних індустрій, Менеджмент організацій і адміністрування, Міжнародний менеджмент (ІТ-менеджмент)",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -415,6 +464,9 @@ const subjects = [
     {
         code: "075",
         title: "Маркетинг",
+        program: "Маркетинг",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -451,6 +503,9 @@ const subjects = [
     {
         code: "076",
         title: "Підприємництво та торгівля",
+        program: "Електронна комерція, Електронна комерція, Підприємництво, торгівля та біржова діяльність",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -487,6 +542,9 @@ const subjects = [
     {
         code: "081",
         title: "Право",
+        program: "Правове регулювання економіки",
+        minBudget: 140,
+        minContract: 120,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -523,6 +581,9 @@ const subjects = [
     {
         code: "121",
         title: "Інженерія програмного забезпечення",
+        program: "Інженерія програмного забезпечення",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -559,6 +620,9 @@ const subjects = [
     {
         code: "122",
         title: "Комп’ютерні науки",
+        program: "Комп’ютерні науки",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -595,6 +659,9 @@ const subjects = [
     {
         code: "124",
         title: "Системний аналіз",
+        program: "Управління складними системами",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -631,6 +698,9 @@ const subjects = [
     {
         code: "125",
         title: "Кібербезпека та захист інформації",
+        program: "Кібербезпека",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -667,6 +737,9 @@ const subjects = [
     {
         code: "126",
         title: "Інформаційні системи та технології",
+        program: "Інформаційні системи та технології",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -703,6 +776,9 @@ const subjects = [
     {
         code: "186",
         title: "Видавництво та поліграфія",
+        program: "Технології електронних мультимедійних видань",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -739,6 +815,9 @@ const subjects = [
     {
         code: "232",
         title: "Соціальне забезпечення",
+        program: "Управління соціальною сферою",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -775,6 +854,9 @@ const subjects = [
     {
         code: "241",
         title: "Готельно-ресторанна справа",
+        program: "Готельно-ресторанний бізнес",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -810,7 +892,10 @@ const subjects = [
     },
     {
         code: "242",
-        title: "Туризм і рекреація",
+        title: "Туризм і рекреація",        
+        program: "Туризм",
+        minBudget: 130,
+        minContract: 100,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -847,6 +932,9 @@ const subjects = [
     {
         code: "281",
         title: "Публічне управління та адміністрування",
+        program: "Публічне управління",
+        minBudget: 140,
+        minContract: 120,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -883,6 +971,9 @@ const subjects = [
     {
         code: "291",
         title: "Міжнародні відносини, суспільні комунікації та регіональні студії",
+        program: "Міжнародні відносини, суспільні комунікації та регіональні студії",
+        minBudget: 140,
+        minContract: 120,
         mainSubjects: [
             {
                 title: "Українська мова",
@@ -919,6 +1010,9 @@ const subjects = [
     {
         code: "292",
         title: "Міжнародні економічні відносини",
+        program: "Міжнародний бізнеc",
+        minBudget: 140,
+        minContract: 120,
         mainSubjects: [
             {
                 title: "Українська мова",
