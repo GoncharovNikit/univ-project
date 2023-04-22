@@ -19,9 +19,9 @@ specialityDropdown.addEventListener("change", () => {
 
 form.addEventListener("submit", (e) => {
     e.preventDefault()
-    let ukrValue = parseFloat(document.getElementById("ukrInput").value)
-    let mathValue = parseFloat(document.getElementById("mathInput").value)
-    let thirdValue = parseFloat(document.getElementById("thirdSub").value)
+    let ukrValue = parseInt(document.getElementById("ukrInput").value)
+    let mathValue = parseInt(document.getElementById("mathInput").value)
+    let thirdValue = parseInt(document.getElementById("thirdSub").value)
 
     const specialityCode = specialityDropdown.value
     const thirdSubject = thirdSubDropdown.value
@@ -44,16 +44,37 @@ function calculateScore(
     mathValue,
     thirdValue
 ) {
-    const speciality = getSpecialities().find((speciality) => speciality.code === specialityCode)
+    if (ukrValue < 100 || ukrValue > 200 || mathValue < 100 || mathValue > 200 || thirdValue < 100 || thirdValue > 200) {
+        if (ukrValue < 100 || ukrValue > 200) {
+            document.getElementById("ukrInput").style.color = "red";
+        }
+        if (mathValue < 100 || mathValue > 200) {
+            document.getElementById("mathInput").style.color = "red";
+        }
+        if (thirdValue < 100 || thirdValue > 200) {
+            document.getElementById("thirdSub").style.color = "red";
+        }
 
-    const ukrCoef = speciality.mainSubjects[0].coef
-    const ukrScore = ukrCoef * ukrValue
-    const mathCoef = speciality.mainSubjects[1].coef
-    const mathScore = mathCoef * mathValue
-    const thirdCoef = speciality.secondarySubjects.find((subj) => subj.title === thirdSubject).coef
-    const thirdScore = thirdCoef * thirdValue
+        result.textContent = '';
+        return;
+    }
 
-    return (ukrScore + mathScore + thirdScore) / (ukrCoef + mathCoef + thirdCoef) * 1
+    else {
+        document.getElementById("ukrInput").style.color = "";
+        document.getElementById("mathInput").style.color = "";
+        document.getElementById("thirdSub").style.color = "";
+
+        const speciality = getSpecialities().find((speciality) => speciality.code === specialityCode)
+
+        const ukrCoef = speciality.mainSubjects[0].coef
+        const ukrScore = ukrCoef * ukrValue
+        const mathCoef = speciality.mainSubjects[1].coef
+        const mathScore = mathCoef * mathValue
+        const thirdCoef = speciality.secondarySubjects.find((subj) => subj.title === thirdSubject).coef
+        const thirdScore = thirdCoef * thirdValue
+
+        return (ukrScore + mathScore + thirdScore) / (ukrCoef + mathCoef + thirdCoef) * 1
+    }
 }
 
 const addSpecialitiesOptions = (specialities) => {
