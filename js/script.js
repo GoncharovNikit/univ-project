@@ -4,24 +4,63 @@ const result = document.querySelector(".result")
 const specialityDropdown = document.querySelector("#speciality-dropdown")
 const thirdSubDropdown = document.querySelector("#third-subject ")
 const programPlaceHold = document.querySelector("#programPlaceHold")
+const ukrID = document.getElementById("ukrInput")
+const mathID = document.getElementById("mathInput")
+const thirdSubID = document.getElementById("thirdSub")
+const scoreBudget = document.getElementById("scoreBudget")
+const scoreContract = document.getElementById("scoreContract")
+const regex = /^\d{3}$/
 
 document.addEventListener("DOMContentLoaded", (e) => {
     updateModeSwitchIcon()
 
     addSpecialitiesOptions(getSpecialities())
     addSecondarySubjectOptions(specialityDropdown.value)
+    displayProgram(specialityDropdown.value)
+    passingScore(specialityDropdown.value)
 })
 
 specialityDropdown.addEventListener("change", () => {
     addSecondarySubjectOptions(specialityDropdown.value)
     displayProgram(specialityDropdown.value)
+    passingScore(specialityDropdown.value)
 })
+
+ukrID.addEventListener("input", function () {
+    let userInput = ukrID.value;
+
+    if (userInput < 100 || userInput > 200 || !regex.test(userInput)) {
+        ukrID.style.color = "red";
+    } else {
+        ukrID.style.color = "black";
+    }
+});
+
+mathID.addEventListener("input", function () {
+    let userInput = mathID.value;
+
+    if (userInput < 100 || userInput > 200 || !regex.test(userInput)) {
+        mathID.style.color = "red";
+    } else {
+        mathID.style.color = "black";
+    }
+});
+
+thirdSubID.addEventListener("input", function () {
+    let userInput = thirdSubID.value;
+
+    if (userInput < 100 || userInput > 200 || !regex.test(userInput)) {
+        thirdSubID.style.color = "red";
+    } else {
+        thirdSubID.style.color = "black";
+    }
+});
 
 form.addEventListener("submit", (e) => {
     e.preventDefault()
-    let ukrValue = parseInt(document.getElementById("ukrInput").value)
-    let mathValue = parseInt(document.getElementById("mathInput").value)
-    let thirdValue = parseInt(document.getElementById("thirdSub").value)
+    let ukrValue = parseInt(ukrID.value)
+    let mathValue = parseInt(mathID.value)
+    let thirdValue = parseInt(thirdSubID.value)
 
     const specialityCode = specialityDropdown.value
     const thirdSubject = thirdSubDropdown.value
@@ -45,36 +84,20 @@ function calculateScore(
     thirdValue
 ) {
     if (ukrValue < 100 || ukrValue > 200 || mathValue < 100 || mathValue > 200 || thirdValue < 100 || thirdValue > 200) {
-        if (ukrValue < 100 || ukrValue > 200) {
-            document.getElementById("ukrInput").style.color = "red";
-        }
-        if (mathValue < 100 || mathValue > 200) {
-            document.getElementById("mathInput").style.color = "red";
-        }
-        if (thirdValue < 100 || thirdValue > 200) {
-            document.getElementById("thirdSub").style.color = "red";
-        }
-
-        result.textContent = '';
+        result.textContent = "Некоректний ввід";
         return;
     }
 
-    else {
-        document.getElementById("ukrInput").style.color = "";
-        document.getElementById("mathInput").style.color = "";
-        document.getElementById("thirdSub").style.color = "";
+    const speciality = getSpecialities().find((speciality) => speciality.code === specialityCode)
 
-        const speciality = getSpecialities().find((speciality) => speciality.code === specialityCode)
+    const ukrCoef = speciality.mainSubjects[0].coef
+    const ukrScore = ukrCoef * ukrValue
+    const mathCoef = speciality.mainSubjects[1].coef
+    const mathScore = mathCoef * mathValue
+    const thirdCoef = speciality.secondarySubjects.find((subj) => subj.title === thirdSubject).coef
+    const thirdScore = thirdCoef * thirdValue
 
-        const ukrCoef = speciality.mainSubjects[0].coef
-        const ukrScore = ukrCoef * ukrValue
-        const mathCoef = speciality.mainSubjects[1].coef
-        const mathScore = mathCoef * mathValue
-        const thirdCoef = speciality.secondarySubjects.find((subj) => subj.title === thirdSubject).coef
-        const thirdScore = thirdCoef * thirdValue
-
-        return (ukrScore + mathScore + thirdScore) / (ukrCoef + mathCoef + thirdCoef) * 1
-    }
+    return (ukrScore + mathScore + thirdScore) / (ukrCoef + mathCoef + thirdCoef) * 1
 }
 
 const addSpecialitiesOptions = (specialities) => {
@@ -96,19 +119,6 @@ const addSecondarySubjectOptions = (specialityCode) => {
         thirdSubDropdown.appendChild(option)
     })
 }
-
-/*const updateModeSwitchIcon = () => {
-  const isDarkMode = document.body.classList.contains('dark');
-  const moonIcon = document.querySelector('.moon-icon');
-  const sunIcon = document.querySelector('.sun-icon');
-  if (isDarkMode) {
-    moonIcon.style.display = 'block';
-    sunIcon.style.display = 'none';
-  } else {
-    moonIcon.style.display = 'none';
-    sunIcon.style.display = 'block';
-  }
-};*/
 
 const updateModeSwitchIcon = () => {
     const icon = document.querySelector(".icon")
@@ -143,31 +153,22 @@ const getSecondarySubjects = (specialityCode) => {
     return speciality.secondarySubjects.map((subject) => subject.title)
 }
 
-const displayProgram = (specialityCode) =>{
+const displayProgram = (specialityCode) => {
     const speciality = getSpecialities().find(
         (speciality) => speciality.code === specialityCode
     )
 
-    programPlaceHold.innerHTML ="Освітні програми: "+speciality.program
+    programPlaceHold.innerHTML = "Освітні програми: " + speciality.program
 }
 
+const passingScore = (specialityCode) => {
+    const speciality = getSpecialities().find(
+        (speciality) => speciality.code === specialityCode
+    )
+    scoreBudget.innerHTML = "Мінімальний прохідний бал на бюджет для обраної спеціальності: " + speciality.minBudget
+    scoreContract.innerHTML = "Мінімальний прохідний бал на контракт для обраної спеціальності: " + speciality.minContract
+}
 
-
-// specialityDropdown.addEventListener("change", () => {
-//     addSecondarySubjectOptions(specialityDropdown.value)
-//     displayProgram(specialityDropdown.value)
-// })
-
-// const addSecondarySubjectOptions = (specialityCode) => {
-//     thirdSubDropdown.innerHTML = ""
-
-//     getSecondarySubjects(specialityCode).forEach((subj) => {
-//         const option = document.createElement("option")
-//         option.value = subj
-//         option.innerHTML = subj
-//         thirdSubDropdown.appendChild(option)
-//     })
-// }
 
 const subjects = [
     {
@@ -913,7 +914,7 @@ const subjects = [
     },
     {
         code: "242",
-        title: "Туризм і рекреація",        
+        title: "Туризм і рекреація",
         program: "Туризм",
         minBudget: 130,
         minContract: 100,
