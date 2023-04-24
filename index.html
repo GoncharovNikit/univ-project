@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <title>Konkurs hneu</title>
     <link rel="icon" type="image/x-icon" href="img/icon1.png" />
     <link rel="stylesheet" href="css/index.css" />
 </head>
-
 <body class="light">
-    <div class="container">
         <div class="theme-switcher">
             <label class="switch">
                 <input type="checkbox" id="theme-toggle">
@@ -23,36 +20,38 @@
                     <label for="speciality-dropdown">Виберіть спеціальність:</label>
                     <select id="speciality-dropdown">
                     </select>
-                    <p id="programPlaceHold"></p>
+                    <p id="program-placeholder"></p>
                 </div>
                 <div class="subjects-container">
                     <div class="input-container">
                         <label>Українська мова:</label>
-                        <input name="ukrInput" type="text" id="ukrInput" placeholder="Введіть бал" required />
+                        <input name="ukr-input" type="number" min="100" max="200" step="1" id="ukr-input" class="mark-input" placeholder="Введіть бал" required />
                     </div>
                     <div class="input-container">
                         <label>Математика:</label>
-                        <input name="mathInput" type="text" id="mathInput" placeholder="Введіть бал" required />
+                        <input name="math-input" type="number" min="100" max="200" step="1" id="math-input" class="mark-input" placeholder="Введіть бал" required />
                     </div>
                     <div class="select-container">
                         <label>Оберіть третій предмет:</label>
                         <select id="third-subject">
                         </select>
-                        <input name="thirdSub" type="text" id="thirdSub" placeholder="Введіть бал" required />
+                        <input name="third-sub" type="number" min="100" max="200" step="1" id="third-sub" class="mark-input" placeholder="Введіть бал" required />
                     </div>
                 </div>
                 <div class="result-container">
                     <button type="submit">Розрахувати бал</button>
-                    <div class="result"></div>
+                    <div class="mark-results">
+                        <div class="result"></div>
+                        <div class="min-scores">
+                            <p id="score-budget"></p>
+                            <p id="score-contract"></p>
+                        </div>
+                    </div>
                 </div>
-                <p id="scoreBudget"></p>
-                <p id="scoreContract"></p>
             </form>
+            <p id="label-below">Всі розрахунки приблизні. Остаточний результат буде виданий приймальною комісією.</p>
+            <footer>Створено на факультеті ІТ 2023</footer>
         </div>
-        <p id="labelBelow">Всі розрахунки приблизні. Остаточний результат буде виданий приймальною комісією.</p>
-        <footer id="footer"> Створено на факультеті ІТ 2023</footer>
-    </div>
     <script src="js/script.js"></script>
 </body>
-
 </html>

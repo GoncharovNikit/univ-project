@@ -109,9 +109,18 @@ input:checked+.slider:before {
 
 .form-container {
     color: black;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .form {
+    margin: 0 auto;
+    margin-top: -50px;
+    width: 50%;
     background-color: #fff;
     padding: 20px;
     border-radius: 4px;
@@ -130,7 +139,7 @@ input:checked+.slider:before {
 }
 
 select,
-input[type="text"] {
+input[type="number"] {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -147,7 +156,8 @@ button[type="submit"] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 30%;
+    width: 40%;
+    height: 42px;
 }
 
 .result-container {
@@ -156,6 +166,13 @@ button[type="submit"] {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: start;
+}
+
+.mark-results {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
 }
 
 .result {
@@ -163,7 +180,8 @@ button[type="submit"] {
     font-weight: bold;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 30%;
+    width: 100%;
+    height: 42px;
 
     display: flex;
     justify-content: center;
@@ -174,34 +192,68 @@ button[type="submit"] {
     margin-bottom: 10px;
 }
 
-#programPlaceHold {
+#program-placeholder {
     margin-top: 7px;
     font-size: 14px;
     color: rgb(82, 82, 82);
+    height: 22px;
 }
 
-#scoreBudget {
-    text-align: right;
+.min-scores {
+    padding-top: 8px;
+}
+
+#score-budget, #score-contract {
+    text-align: left;
     margin-top: 5px;
     font-size: 14px;
     color: rgb(82, 82, 82);
+    padding-left: 6px;
 }
 
-#scoreContract {
-    text-align: right;
-    margin-top: 5px;
+#label-below, footer {
+    text-align: center;
+    margin-top: 30px;
     font-size: 14px;
-    color: rgb(82, 82, 82);
+    color: #525252;
 }
 
-#labelBelow {
-    text-align: left;
-    margin-top: 10px;
-    font-size: 14px;
-} 
+body.dark #label-below {
+    color: #f5f5f5;
+}
 
-#footer {
-    text-align: left;
+body.dark footer {
+    color: #f5f5f5;
+}
+
+footer {
     margin-top: 10px;
-    font-size: 14px;
+}
+
+@media(max-width: 1420px) {
+    .form {
+        width: 70%;
+    }   
+}
+
+@media(max-width: 1020px) {
+    .form {
+        width: 90%;
+    }   
+}
+
+@media(max-width: 790px) {
+    .result-container {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 20px;
+    }
+
+    .mark-results, button[type="submit"] {
+        width: 70%;
+    }
+
+    #score-budget, #score-contract {
+        padding-left: 20px;
+    }
 }

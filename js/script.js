@@ -1,15 +1,6 @@
-const form = document.querySelector(".form")
-const resultContainer = document.querySelector(".result-container")
 const result = document.querySelector(".result")
 const specialityDropdown = document.querySelector("#speciality-dropdown")
 const thirdSubDropdown = document.querySelector("#third-subject")
-const programPlaceHold = document.querySelector("#programPlaceHold")
-const ukrID = document.getElementById("ukrInput")
-const mathID = document.getElementById("mathInput")
-const thirdSubID = document.getElementById("thirdSub")
-const scoreBudget = document.getElementById("scoreBudget")
-const scoreContract = document.getElementById("scoreContract")
-const regex = /^\d{3}$/
 
 document.addEventListener("DOMContentLoaded", (e) => {
     updateModeSwitchIcon()
@@ -18,8 +9,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
     addSecondarySubjectOptions(specialityDropdown.value)
     displayProgram(specialityDropdown.value)
     passingScore(specialityDropdown.value)
-    document.getElementById("labelBelow").style.color = "#525252"
-    document.getElementById("footer").style.color = "#525252"
 })
 
 specialityDropdown.addEventListener("change", () => {
@@ -28,41 +17,21 @@ specialityDropdown.addEventListener("change", () => {
     passingScore(specialityDropdown.value)
 })
 
-ukrID.addEventListener("input", function () {
-    let userInput = ukrID.value;
+document.querySelectorAll(".mark-input").forEach((markInput) => {
+    markInput.addEventListener("input", (e) => {
+        let userInput = e.target.value
+        e.target.style.color =
+            !/^\d{3}$/.test(userInput) || userInput < 100 || userInput > 200
+                ? "red"
+                : "black"
+    })
+})
 
-    if (userInput < 100 || userInput > 200 || !regex.test(userInput)) {
-        ukrID.style.color = "red";
-    } else {
-        ukrID.style.color = "black";
-    }
-});
-
-mathID.addEventListener("input", function () {
-    let userInput = mathID.value;
-
-    if (userInput < 100 || userInput > 200 || !regex.test(userInput)) {
-        mathID.style.color = "red";
-    } else {
-        mathID.style.color = "black";
-    }
-});
-
-thirdSubID.addEventListener("input", function () {
-    let userInput = thirdSubID.value;
-
-    if (userInput < 100 || userInput > 200 || !regex.test(userInput)) {
-        thirdSubID.style.color = "red";
-    } else {
-        thirdSubID.style.color = "black";
-    }
-});
-
-form.addEventListener("submit", (e) => {
+document.querySelector(".form").addEventListener("submit", (e) => {
     e.preventDefault()
-    let ukrValue = parseInt(ukrID.value)
-    let mathValue = parseInt(mathID.value)
-    let thirdValue = parseInt(thirdSubID.value)
+    let ukrValue = parseInt(document.getElementById("ukr-input").value)
+    let mathValue = parseInt(document.getElementById("math-input").value)
+    let thirdValue = parseInt(document.getElementById("third-sub").value)
 
     const specialityCode = specialityDropdown.value
     const thirdSubject = thirdSubDropdown.value
@@ -85,21 +54,24 @@ function calculateScore(
     mathValue,
     thirdValue
 ) {
-    if (ukrValue < 100 || ukrValue > 200 || mathValue < 100 || mathValue > 200 || thirdValue < 100 || thirdValue > 200) {
-        result.textContent = "Некоректний ввід";
-        return;
-    }
-
-    const speciality = getSpecialities().find((speciality) => speciality.code === specialityCode)
+    const speciality = getSpecialities().find(
+        (speciality) => speciality.code === specialityCode
+    )
 
     const ukrCoef = speciality.mainSubjects[0].coef
     const ukrScore = ukrCoef * ukrValue
     const mathCoef = speciality.mainSubjects[1].coef
     const mathScore = mathCoef * mathValue
-    const thirdCoef = speciality.secondarySubjects.find((subj) => subj.title === thirdSubject).coef
+    const thirdCoef = speciality.secondarySubjects.find(
+        (subj) => subj.title === thirdSubject
+    ).coef
     const thirdScore = thirdCoef * thirdValue
 
-    return (ukrScore + mathScore + thirdScore) / (ukrCoef + mathCoef + thirdCoef) * 1
+    return (
+        ((ukrScore + mathScore + thirdScore) /
+            (ukrCoef + mathCoef + thirdCoef)) *
+        1
+    )
 }
 
 const addSpecialitiesOptions = (specialities) => {
@@ -138,13 +110,9 @@ themeToggle.addEventListener("change", function () {
     if (this.checked) {
         document.body.classList.remove("light")
         document.body.classList.add("dark")
-        document.getElementById("labelBelow").style.color = "#f5f5f5"
-        document.getElementById("footer").style.color = "#f5f5f5"
     } else {
         document.body.classList.remove("dark")
         document.body.classList.add("light")
-        document.getElementById("labelBelow").style.color = "#525252"
-        document.getElementById("footer").style.color = "#525252"
     }
     updateModeSwitchIcon()
 })
@@ -164,17 +132,19 @@ const displayProgram = (specialityCode) => {
         (speciality) => speciality.code === specialityCode
     )
 
-    programPlaceHold.innerHTML = "Освітні програми: " + speciality.program
+    document.querySelector("#program-placeholder").innerHTML =
+        "Освітні програми: " + speciality.program
 }
 
 const passingScore = (specialityCode) => {
     const speciality = getSpecialities().find(
         (speciality) => speciality.code === specialityCode
     )
-    scoreBudget.innerHTML = "Мінімальний прохідний бал на бюджет для обраної спеціальності: " + speciality.minBudget
-    scoreContract.innerHTML = "Мінімальний прохідний бал на контракт для обраної спеціальності: " + speciality.minContract
+    document.getElementById("score-budget").innerHTML =
+        "Мінімальний бал на бюджет: " + speciality.minBudget
+    document.getElementById("score-contract").innerHTML =
+        "Мінімальний бал на контракт: " + speciality.minContract
 }
-
 
 const subjects = [
     {
@@ -219,7 +189,8 @@ const subjects = [
     {
         code: "051",
         title: "Економіка",
-        program: "Бізнес-статистика і аналітика, Економіка підприємства, Економіка та економічна політика, Економічна кібернетика, Міжнародна економіка, Управління персоналом в бізнесі, Цифрова економіка",
+        program:
+            "Бізнес-статистика і аналітика, Економіка підприємства, Економіка та економічна політика, Економічна кібернетика, Міжнародна економіка, Управління персоналом в бізнесі, Цифрова економіка",
         minBudget: 130,
         minContract: 100,
         mainSubjects: [
@@ -414,7 +385,8 @@ const subjects = [
     {
         code: "072",
         title: "Фінанси, банківська справа, страхування та фондовий ринок",
-        program: "Митна справа, Фінанси і кредит, Фінансовий продакт-менеджмент, Фінансові послуги та віртуальні активи",
+        program:
+            "Митна справа, Фінанси і кредит, Фінансовий продакт-менеджмент, Фінансові послуги та віртуальні активи",
         minBudget: 130,
         minContract: 100,
         mainSubjects: [
@@ -453,7 +425,8 @@ const subjects = [
     {
         code: "073",
         title: "Менеджмент",
-        program: "Бізнес-адміністрування, Логістика, Менеджмент інноваційної діяльності, Менеджмент креативних індустрій, Менеджмент організацій і адміністрування, Міжнародний менеджмент (ІТ-менеджмент)",
+        program:
+            "Бізнес-адміністрування, Логістика, Менеджмент інноваційної діяльності, Менеджмент креативних індустрій, Менеджмент організацій і адміністрування, Міжнародний менеджмент (ІТ-менеджмент)",
         minBudget: 130,
         minContract: 100,
         mainSubjects: [
@@ -531,7 +504,8 @@ const subjects = [
     {
         code: "076",
         title: "Підприємництво та торгівля",
-        program: "Електронна комерція, Електронна комерція, Підприємництво, торгівля та біржова діяльність",
+        program:
+            "Електронна комерція, Електронна комерція, Підприємництво, торгівля та біржова діяльність",
         minBudget: 130,
         minContract: 100,
         mainSubjects: [
@@ -999,7 +973,8 @@ const subjects = [
     {
         code: "291",
         title: "Міжнародні відносини, суспільні комунікації та регіональні студії",
-        program: "Міжнародні відносини, суспільні комунікації та регіональні студії",
+        program:
+            "Міжнародні відносини, суспільні комунікації та регіональні студії",
         minBudget: 140,
         minContract: 120,
         mainSubjects: [
