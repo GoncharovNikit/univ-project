@@ -198,12 +198,10 @@ button[type="submit"] {
     text-align: left;
     margin-top: 10px;
     font-size: 14px;
-    color: rgb(82, 82, 82);
-}
+} 
 
-footer {
+#footer {
     text-align: left;
     margin-top: 10px;
     font-size: 14px;
-    color: rgb(82, 82, 82);
 }

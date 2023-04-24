@@ -2,7 +2,7 @@ const form = document.querySelector(".form")
 const resultContainer = document.querySelector(".result-container")
 const result = document.querySelector(".result")
 const specialityDropdown = document.querySelector("#speciality-dropdown")
-const thirdSubDropdown = document.querySelector("#third-subject ")
+const thirdSubDropdown = document.querySelector("#third-subject")
 const programPlaceHold = document.querySelector("#programPlaceHold")
 const ukrID = document.getElementById("ukrInput")
 const mathID = document.getElementById("mathInput")
@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
     addSecondarySubjectOptions(specialityDropdown.value)
     displayProgram(specialityDropdown.value)
     passingScore(specialityDropdown.value)
+    document.getElementById("labelBelow").style.color = "#525252"
+    document.getElementById("footer").style.color = "#525252"
 })
 
 specialityDropdown.addEventListener("change", () => {
@@ -136,9 +138,13 @@ themeToggle.addEventListener("change", function () {
     if (this.checked) {
         document.body.classList.remove("light")
         document.body.classList.add("dark")
+        document.getElementById("labelBelow").style.color = "#f5f5f5"
+        document.getElementById("footer").style.color = "#f5f5f5"
     } else {
         document.body.classList.remove("dark")
         document.body.classList.add("light")
+        document.getElementById("labelBelow").style.color = "#525252"
+        document.getElementById("footer").style.color = "#525252"
     }
     updateModeSwitchIcon()
 })
