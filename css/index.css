@@ -196,7 +196,7 @@ button[type="submit"] {
     margin-top: 7px;
     font-size: 14px;
     color: rgb(82, 82, 82);
-    height: 22px;
+    height: auto;
 }
 
 .min-scores {
