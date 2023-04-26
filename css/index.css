@@ -244,6 +244,10 @@ footer {
 }
 
 @media(max-width: 790px) {
+    .form {
+        margin-top: 0;
+    }
+    
     .result-container {
         flex-direction: column;
         align-items: center;
@@ -268,5 +272,34 @@ footer {
 @media(max-width: 450px) {
     #score-budget, #score-contract {
         padding-left: 0;
+    }
+
+    .result-container {
+        padding: 0 20px;
+    }
+
+    #label-below {
+        width: 80%;
+    }
+}
+
+@media(max-width: 340px) {
+    .result-container {
+        padding: 0;
+    }
+
+    #label-below, footer {
+        width: 95%;
+    }
+}
+
+@media(max-height: 870px) {
+    .form-container {
+        height: auto;
+        margin-top: 70px;
+    }
+
+    footer {
+        margin-bottom: 20px;
     }
 }
