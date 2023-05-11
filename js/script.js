@@ -9,69 +9,54 @@ document.addEventListener("DOMContentLoaded", (e) => {
     addSecondarySubjectOptions(specialityDropdown.value)
     displayProgram(specialityDropdown.value)
     passingScore(specialityDropdown.value)
+    displayCoefs(specialityDropdown.value)
 })
 
 specialityDropdown.addEventListener("change", () => {
     addSecondarySubjectOptions(specialityDropdown.value)
     displayProgram(specialityDropdown.value)
     passingScore(specialityDropdown.value)
+    displayCoefs(specialityDropdown.value)
+})
+
+thirdSubDropdown.addEventListener("change", () => {
+    displayCoefs(specialityDropdown.value)
 })
 
 document.querySelectorAll(".mark-input").forEach((markInput) => {
     markInput.addEventListener("input", (e) => {
         let userInput = e.target.value
         e.target.style.color =
-            !/^\d{3}$/.test(userInput) || userInput < 100 || userInput > 200
-                ? "red"
-                : "black"
+            !/^\d{3}$/.test(userInput) || userInput < 100 || userInput > 200 ? "red" : "black"
     })
 })
 
 document.querySelector(".form").addEventListener("submit", (e) => {
     e.preventDefault()
-    let ukrValue = parseInt(document.getElementById("ukr-input").value)
-    let mathValue = parseInt(document.getElementById("math-input").value)
-    let thirdValue = parseInt(document.getElementById("third-sub").value)
+    const ukrValue = +(document.getElementById("ukr-input").value)
+    const mathValue = +(document.getElementById("math-input").value)
+    const thirdValue = +(document.getElementById("third-sub").value)
 
     const specialityCode = specialityDropdown.value
     const thirdSubject = thirdSubDropdown.value
 
-    const score = calculateScore(
-        specialityCode,
-        thirdSubject,
-        ukrValue,
-        mathValue,
-        thirdValue
-    )
+    const score = calculateScore(specialityCode, thirdSubject, ukrValue, mathValue, thirdValue)
 
     result.textContent = score.toFixed(2)
 })
 
-function calculateScore(
-    specialityCode,
-    thirdSubject,
-    ukrValue,
-    mathValue,
-    thirdValue
-) {
-    const speciality = getSpecialities().find(
-        (speciality) => speciality.code === specialityCode
-    )
+function calculateScore(specialityCode, thirdSubject, ukrValue, mathValue, thirdValue) {
+    const speciality = findSpeciality(specialityCode)
 
     const ukrCoef = speciality.mainSubjects[0].coef
     const ukrScore = ukrCoef * ukrValue
     const mathCoef = speciality.mainSubjects[1].coef
     const mathScore = mathCoef * mathValue
-    const thirdCoef = speciality.secondarySubjects.find(
-        (subj) => subj.title === thirdSubject
-    ).coef
+    const thirdCoef = speciality.secondarySubjects.find((subj) => subj.title === thirdSubject).coef
     const thirdScore = thirdCoef * thirdValue
 
-    return (
-        ((ukrScore + mathScore + thirdScore) /
-            (ukrCoef + mathCoef + thirdCoef)) *
-        1
-    )
+    // ADD YOUR COEF INSTEAD OF [* 1]
+    return ((ukrScore + mathScore + thirdScore) / (ukrCoef + mathCoef + thirdCoef)) * 1
 }
 
 const addSpecialitiesOptions = (specialities) => {
@@ -119,27 +104,39 @@ themeToggle.addEventListener("change", function () {
 
 const getSpecialities = () => subjects
 
+const findSpeciality = (specialityCode) =>
+    getSpecialities().find((speciality) => speciality.code === specialityCode)
+
 const getSecondarySubjects = (specialityCode) => {
-    const speciality = getSpecialities().find(
-        (speciality) => speciality.code === specialityCode
-    )
+    const speciality = findSpeciality(specialityCode)
 
     return speciality.secondarySubjects.map((subject) => subject.title)
 }
 
 const displayProgram = (specialityCode) => {
-    const speciality = getSpecialities().find(
-        (speciality) => speciality.code === specialityCode
-    )
+    const speciality = findSpeciality(specialityCode)
 
     document.querySelector("#program-placeholder").innerHTML =
         "Освітні програми: " + speciality.program
 }
 
-const passingScore = (specialityCode) => {
-    const speciality = getSpecialities().find(
-        (speciality) => speciality.code === specialityCode
+const displayCoefs = (specialityCode) => {
+    const speciality = findSpeciality(specialityCode)
+
+    document.querySelector(".subject-1-coef").innerHTML =
+        "Коефіцієнт: " + speciality.mainSubjects[0].coef.toFixed(2)
+    document.querySelector(".subject-2-coef").innerHTML =
+        "Коефіцієнт: " + speciality.mainSubjects[1].coef.toFixed(2)
+
+    const subject3 = speciality.secondarySubjects.find(
+        ({ title }) => title === thirdSubDropdown.value
     )
+    document.querySelector(".subject-3-coef").innerHTML = "Коефіцієнт: " + subject3.coef.toFixed(2)
+}
+
+const passingScore = (specialityCode) => {
+    const speciality = findSpeciality(specialityCode)
+
     document.getElementById("score-budget").innerHTML =
         "Мінімальний бал на бюджет: " + speciality.minBudget
     document.getElementById("score-contract").innerHTML =
@@ -505,7 +502,7 @@ const subjects = [
         code: "076",
         title: "Підприємництво та торгівля",
         program:
-            "Електронна комерція, Електронна комерція, Підприємництво, торгівля та біржова діяльність",
+            "Електронна комерція, Міжнародна торгівля, Підприємництво, торгівля та біржова діяльність",
         minBudget: 130,
         minContract: 100,
         mainSubjects: [
@@ -973,8 +970,7 @@ const subjects = [
     {
         code: "291",
         title: "Міжнародні відносини, суспільні комунікації та регіональні студії",
-        program:
-            "Міжнародні відносини, суспільні комунікації та регіональні студії",
+        program: "Міжнародні відносини, суспільні комунікації та регіональні студії",
         minBudget: 140,
         minContract: 120,
         mainSubjects: [

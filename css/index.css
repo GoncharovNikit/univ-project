@@ -132,10 +132,21 @@ input:checked+.slider:before {
     margin-bottom: 20px;
 }
 
+.speciality-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
 .select-container label,
 .input-container label {
     display: block;
     margin-bottom: 5px;
+}
+
+.coef-label {
+    line-height: 20px;
+    padding-left: 5px;
+    color: rgb(68, 68, 68);
 }
 
 select,

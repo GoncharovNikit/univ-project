@@ -18,7 +18,7 @@
         <div class="form-container">
             <form class="form">
                 <div class="select-container">
-                    <label for="speciality-dropdown">Виберіть спеціальність:</label>
+                    <label for="speciality-dropdown" class="speciality-label">Виберіть спеціальність:</label>
                     <select id="speciality-dropdown">
                     </select>
                     <p id="program-placeholder"></p>
@@ -27,16 +27,19 @@
                     <div class="input-container">
                         <label>Українська мова:</label>
                         <input name="ukr-input" type="number" min="100" max="200" step="1" id="ukr-input" class="mark-input" placeholder="Введіть бал" required />
+                        <small class="subject-1-coef coef-label"></small>
                     </div>
                     <div class="input-container">
                         <label>Математика:</label>
                         <input name="math-input" type="number" min="100" max="200" step="1" id="math-input" class="mark-input" placeholder="Введіть бал" required />
+                        <small class="subject-2-coef coef-label"></small>
                     </div>
                     <div class="select-container">
                         <label>Оберіть третій предмет:</label>
                         <select id="third-subject">
                         </select>
                         <input name="third-sub" type="number" min="100" max="200" step="1" id="third-sub" class="mark-input" placeholder="Введіть бал" required />
+                        <small class="subject-3-coef coef-label"></small>
                     </div>
                 </div>
                 <div class="result-container">
