@@ -26,6 +26,14 @@ a {
     text-decoration: none;
 }
 
+body.dark a, body.dark a:visited {
+    color: aqua;
+}
+
+body.light a, body.light a:visited {
+    color: blue;
+}
+    
 .theme-switcher {
     display: flex;
     align-items: center;
