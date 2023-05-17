@@ -22,6 +22,14 @@ body.dark {
     color: #ffffff;
 }
 
+body.dark a, body.dark a:visited {
+    color: aqua;
+}
+
+body.light a, body.light a:visited {
+    color: blue;
+}
+
 a {
     text-decoration: none;
 }
