@@ -4,8 +4,11 @@ const thirdSubDropdown = document.querySelector("#third-subject")
 
 document.addEventListener("DOMContentLoaded", () => {
     updateModeSwitchIcon()
+    loadSpecialities()
+})
 
-    addSpecialitiesOptions(getSpecialities())
+document.addEventListener("dataLoaded", (e) => {
+    addSpecialitiesOptions(e.data)
     addSecondarySubjectOptions(specialityDropdown.value)
     displayProgram(specialityDropdown.value)
     displayPassingScore(specialityDropdown.value)
@@ -33,9 +36,9 @@ document.querySelectorAll(".mark-input").forEach((markInput) => {
 
 document.querySelector(".form").addEventListener("submit", (e) => {
     e.preventDefault()
-    const ukrValue = +(document.getElementById("ukr-input").value)
-    const mathValue = +(document.getElementById("math-input").value)
-    const thirdValue = +(document.getElementById("third-sub").value)
+    const ukrValue = +document.getElementById("ukr-input").value
+    const mathValue = +document.getElementById("math-input").value
+    const thirdValue = +document.getElementById("third-sub").value
 
     const specialityCode = specialityDropdown.value
     const thirdSubject = thirdSubDropdown.value
@@ -102,10 +105,32 @@ themeToggle.addEventListener("change", function () {
     updateModeSwitchIcon()
 })
 
-const getSpecialities = () => subjects
+function loadSpecialities() {
+    if (this.data) {
+        return this.data
+    }
+    
+    fetch("http://localhost/api/getSpecialities.php", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then((resp) => {
+        console.log(resp);
+        resp.json().then((data) => {
+            this.data = data
+            const event = new Event("dataLoaded", {
+                data: this.data
+            })
+            document.dispatchEvent(event)
+        })
+    })
+
+    return this.data
+}
 
 const findSpeciality = (specialityCode) =>
-    getSpecialities().find((speciality) => speciality.code === specialityCode)
+    loadSpecialities().find((speciality) => speciality.code === specialityCode)
 
 const getSecondarySubjects = (specialityCode) => {
     const speciality = findSpeciality(specialityCode)
@@ -137,7 +162,7 @@ const displayCoefs = (specialityCode) => {
 const displayPassingScore = (specialityCode) => {
     const speciality = findSpeciality(specialityCode)
 
-        document.getElementById("score-contract").innerHTML = speciality.minContract
-            ? "Мінімальний бал на контракт: " + speciality.minContract
-            : ""
+    document.getElementById("score-contract").innerHTML = speciality.minContract
+        ? "Мінімальний бал на контракт: " + speciality.minContract
+        : ""
 }
