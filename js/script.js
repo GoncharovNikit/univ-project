@@ -529,29 +529,29 @@ const subjects = [
             },
             {
                 title: "Математика",
-                coef: 0.4,
+                coef: 0.25,
             },
         ],
         secondarySubjects: [
             {
                 title: "Історія України",
-                coef: 0.25,
+                coef: 0.4,
             },
             {
                 title: "Іноземна мова",
-                coef: 0.25,
+                coef: 0.4,
             },
             {
                 title: "Фізика",
-                coef: 0.2,
+                coef: 0.25,
             },
             {
                 title: "Хімія",
-                coef: 0.2,
+                coef: 0.25,
             },
             {
                 title: "Біологія",
-                coef: 0.2,
+                coef: 0.25,
             },
         ],
     },
