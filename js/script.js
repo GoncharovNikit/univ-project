@@ -3,8 +3,6 @@ const specialityDropdown = document.querySelector("#speciality-dropdown")
 const thirdSubDropdown = document.querySelector("#third-subject")
 
 document.addEventListener("DOMContentLoaded", () => {
-    updateModeSwitchIcon()
-
     addSpecialitiesOptions(getSpecialities())
     addSecondarySubjectOptions(specialityDropdown.value)
     displayProgram(specialityDropdown.value)
@@ -78,29 +76,6 @@ const addSecondarySubjectOptions = (specialityCode) => {
         thirdSubDropdown.appendChild(option)
     })
 }
-
-const updateModeSwitchIcon = () => {
-    const icon = document.querySelector(".icon")
-    if (themeToggle.checked) {
-        icon.classList.add("rotate")
-    } else {
-        icon.classList.remove("rotate")
-    }
-}
-
-const themeToggle = document.querySelector("#theme-toggle")
-const switchElement = document.querySelector(".switch")
-
-themeToggle.addEventListener("change", function () {
-    if (this.checked) {
-        document.body.classList.remove("light")
-        document.body.classList.add("dark")
-    } else {
-        document.body.classList.remove("dark")
-        document.body.classList.add("light")
-    }
-    updateModeSwitchIcon()
-})
 
 const getSpecialities = () => subjects
 
